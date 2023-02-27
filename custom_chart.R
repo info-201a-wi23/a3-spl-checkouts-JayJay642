@@ -3,21 +3,22 @@ library(scales)
 library(dplyr)
 file <- "/Users/jaylenjohnson/INFO-201/2017-2023-10-Checkouts-SPL-Data.csv"
 checkout_data <- read.csv(file)
+checkout_data_final_2 <- checkout_data %>% filter(MaterialType %in% c("AUDIOBOOK", "BOOK", "EBOOK", "MOVIE"))
 
-ggplot(data = checkout_data) +
+ggplot(data = checkout_data_final_2) +
   geom_col(
     aes(
-      x = CheckoutYear,
+      x = MaterialType,
       y = Checkouts,
-      fill = UsageClass
+      fill = MaterialType
     )
-  ) +
+  ) + 
   labs(
-    title = "Mediums with the Most Checkouts",
+    title = "Number of Total Checkouts",
     subtitle = "Source: 2017-2023-10-Checkouts-SPL-Data.csv",
-    x = "Checkouts in a Year",
+    x = "Checkouts by Type of Material",
     y = "Number of Checkouts",
-    fill = "Color by Medium Type"
+    fill = "Material Type"
   ) +
   scale_y_continuous(
     labels = label_number_si()
